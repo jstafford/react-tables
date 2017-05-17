@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Table, Column, Cell} from 'fixed-data-table';
+import {Table, Column, Cell} from 'fixed-data-table-2';
 
 const cache = {};
 let loading = false;
@@ -22,8 +22,8 @@ const AjaxCell = ({rowIndex, col, forceUpdate, ...props}) => {
     } else if(!loading) {
         console.log("Loading page " + page);
         loading = true;
-        
-        fetch('http://swapi.co/api/people/?format=json&page='+page).then(function(response) { 
+
+        fetch('http://swapi.co/api/people/?format=json&page='+page).then(function(response) {
             return response.json();
         }).then(function(j) {
             cache[page] = j['results'];
@@ -35,26 +35,26 @@ const AjaxCell = ({rowIndex, col, forceUpdate, ...props}) => {
 }
 
 class TableContainer extends React.Component {
-    render() { 
+    render() {
         return <Table
-            rowHeight={30} rowsCount={87} width={600} height={200} headerHeight={30}>
-            
+            rowHeight={30} rowsCount={87} width={620} height={200} headerHeight={30}>
+
             <Column
               header={<Cell>Name</Cell>}
               cell={ <AjaxCell col='name' forceUpdate={this.forceUpdate.bind(this)} /> }
               width={200}
             />
             <Column
-              header={<Cell>Name</Cell>}
+              header={<Cell>Birth Year</Cell>}
               cell={ <AjaxCell col='birth_year' forceUpdate={this.forceUpdate.bind(this)} /> }
-              width={200}
+              width={120}
             />
             <Column
-              header={<Cell>Name</Cell>}
+              header={<Cell>Url</Cell>}
               cell={ <AjaxCell col='url' forceUpdate={this.forceUpdate.bind(this)} /> }
-              width={200}
+              width={300}
             />
-            
+
         </Table>
     }
 }
